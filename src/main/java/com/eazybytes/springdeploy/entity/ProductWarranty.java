@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class ProductWarranty {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(name = "product_id")
     private int productId;

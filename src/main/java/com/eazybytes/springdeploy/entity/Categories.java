@@ -6,11 +6,15 @@ import jakarta.persistence.*;
 @Table(name = "categories")
 public class Categories {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     private String url;
     private String name;
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
 
     public int getId() {
         return id;

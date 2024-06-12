@@ -8,11 +8,10 @@ import java.util.List;
 @Table(name = "configurable_products")
 public class ConfigurableProducts {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "product_id")
-    private int productId;
+    @Column(name = "product_id", nullable = false)
+    private Integer productId;
 
     @Column(name = "inventory_status")
     private String inventoryStatus;
@@ -31,7 +30,7 @@ public class ConfigurableProducts {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

@@ -9,7 +9,7 @@ import java.util.List;
 public class ProductSpecifications {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(name = "product_id")
     private int productId;
@@ -19,6 +19,14 @@ public class ProductSpecifications {
     @OneToMany
     @JoinColumn(name="specification_id")
     private List<SpecificationAttributes> attributes;
+
+    public List<SpecificationAttributes> getAttributes() {
+        return attributes;
+    }
+
+    public void setAttributes(List<SpecificationAttributes> attributes) {
+        this.attributes = attributes;
+    }
 
     public int getId() {
         return id;

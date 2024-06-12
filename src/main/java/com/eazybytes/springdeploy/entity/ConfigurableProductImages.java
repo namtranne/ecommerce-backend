@@ -7,8 +7,8 @@ import jakarta.persistence.*;
 @Table(name = "configurable_product_images")
 public class ConfigurableProductImages {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @GeneratedValue(strategy =  GenerationType.IDENTITY)
+    private Integer id;
 
     @Column(name = "configurable_product_id")
     private int configurableProductId;
