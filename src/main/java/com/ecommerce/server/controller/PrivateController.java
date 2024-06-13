@@ -7,12 +7,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 @RestController
-@RequestMapping("/api/products")
-public class ProductsController {
+@RequestMapping("/private")
+public class PrivateController {
 
     @Autowired
     ProductImagesRepository imageRepo;
