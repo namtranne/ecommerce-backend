@@ -69,6 +69,14 @@ public class PrivateController {
         return categoriesRepo.save(category).getId();
     }
 
+//    @PostMapping("categories/parent")
+//    public void setCategoryParent(@RequestParam(value="parentId") int parentId, @RequestParam(value="childrenId") int childrenId) {
+//        Categories parentCategory = categoriesRepo.getReferenceById(parentId);
+//        Categories childCategory = categoriesRepo.getReferenceById(childrenId);
+//        childCategory.setParentCategories(parentCategory);
+//        categoriesRepo.save(childCategory);
+//    }
+
     @PostMapping("image")
     public int createImage(@RequestBody List<ProductImages> images) {
         for(ProductImages image : images) {
