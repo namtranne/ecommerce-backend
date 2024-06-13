@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @RestController
@@ -17,7 +18,7 @@ public class ProductsController {
     ProductImagesRepository imageRepo;
 
     @Autowired
-    ProductsRepository productsRepos;
+    ProductsRepository productsRepo;
 
     @Autowired
     BrandRepository brandRepo;
@@ -50,21 +51,29 @@ public class ProductsController {
 
     @PostMapping("create")
     private int testReceiveProduct(@RequestBody Products product, @RequestParam(value = "categoryId") Integer categoryId, @RequestParam(value="brandId") Integer brandId) {
-        Brand brand = brandRepo.getReferenceById(brandId);
-        Categories category = categoriesRepo.getReferenceById(categoryId);
-        product.setBrand(brand);
-        product.setCategory(category);
-        return productsRepos.save(product).getId();
+//        Brand brand = brandRepo.getReferenceById(brandId);
+//        Categories category = categoriesRepo.getReferenceById(categoryId);
+//        product.setBrand(brand);
+//        product.setCategory(category);
+        return productsRepo.save(product).getId();
     }
 
     @PostMapping("categories/create")
     public int createCategories(@RequestBody Categories category, @RequestParam(value = "parentId") Integer parentId) {
-        Categories parentCategory = null;
-        if(parentId != 0) {
-            parentCategory = categoriesRepo.getReferenceById(parentId);
-        }
-        category.setParentCategories(parentCategory);
+//        Categories parentCategory = null;
+//        if(parentId != 0) {
+//            parentCategory = categoriesRepo.getReferenceById(parentId);
+//        }
+//        category.setParentCategories(parentCategory);
         return categoriesRepo.save(category).getId();
+    }
+
+    @PostMapping("categories/parent")
+    public void setCategoryParent(@RequestParam(value="parentId") int parentId, @RequestParam(value="childrenId") int childrenId) {
+        Categories parentCategory = categoriesRepo.getReferenceById(parentId);
+        Categories childCategory = categoriesRepo.getReferenceById(childrenId);
+        childCategory.setParentCategories(parentCategory);
+        categoriesRepo.save(childCategory);
     }
 
     @PostMapping("image")
@@ -121,6 +130,12 @@ public class ProductsController {
     private int createSpecAttribute(@RequestBody SpecificationAttributes attributes) {
         SpecificationAttributes saveAttribute = specificationAttributesRepo.save(attributes);
         return attributes.getId();
+    }
+
+    @GetMapping("get")
+    private String getProductById(@RequestParam("id") int id) {
+        Products product = productsRepo.findById(id);
+        return product.getShortDescription();
     }
 
 }

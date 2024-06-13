@@ -13,7 +13,7 @@ public class ConfigurableOptionValues {
         this.id = id;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

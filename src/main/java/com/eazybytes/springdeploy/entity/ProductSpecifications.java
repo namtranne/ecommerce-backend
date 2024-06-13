@@ -12,7 +12,7 @@ public class ProductSpecifications {
     private Integer id;
 
     @Column(name = "product_id")
-    private int productId;
+    private Integer productId;
 
     private String name;
 
@@ -28,19 +28,19 @@ public class ProductSpecifications {
         this.attributes = attributes;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getProductId() {
+    public Integer getProductId() {
         return productId;
     }
 
-    public void setProductId(int productId) {
+    public void setProductId(Integer productId) {
         this.productId = productId;
     }
 

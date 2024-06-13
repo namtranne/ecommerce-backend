@@ -11,25 +11,25 @@ public class SpecificationAttributes {
     private Integer id;
 
     @Column(name = "specification_id")
-    private int specificationId;
+    private Integer specificationId;
 
     private String name;
 
     private String value;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getSpecificationId() {
+    public Integer getSpecificationId() {
         return specificationId;
     }
 
-    public void setSpecificationId(int specificationId) {
+    public void setSpecificationId(Integer specificationId) {
         this.specificationId = specificationId;
     }
 

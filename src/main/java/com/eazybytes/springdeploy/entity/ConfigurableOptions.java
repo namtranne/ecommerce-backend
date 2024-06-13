@@ -12,7 +12,7 @@ public class ConfigurableOptions {
     private Integer id;
 
     @Column(name = "product_id")
-    private int productId;
+    private Integer productId;
 
     private String code;
 
@@ -38,12 +38,8 @@ public class ConfigurableOptions {
 
     private String name;
 
-    public int getId() {
+    public Integer getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public int getProductId() {

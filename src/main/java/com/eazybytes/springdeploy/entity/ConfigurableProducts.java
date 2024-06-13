@@ -8,7 +8,7 @@ import java.util.List;
 @Table(name = "configurable_products")
 public class ConfigurableProducts {
     @Id
-    private int id;
+    private Integer id;
 
     @Column(name = "product_id", nullable = false)
     private Integer productId;
@@ -26,7 +26,7 @@ public class ConfigurableProducts {
     @JoinColumn(name = "configurable_product_id")
     private List<ConfigurableProductImages> images;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -34,11 +34,11 @@ public class ConfigurableProducts {
         this.id = id;
     }
 
-    public int getProductId() {
+    public Integer getProductId() {
         return productId;
     }
 
-    public void setProductId(int productId) {
+    public void setProductId(Integer productId) {
         this.productId = productId;
     }
 

@@ -10,7 +10,7 @@ public class ProductImages {
     private Integer id;
 
     @Column(name = "product_id")
-    private int productId;
+    private Integer productId;
 
     private String url;
 
@@ -23,11 +23,11 @@ public class ProductImages {
 
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

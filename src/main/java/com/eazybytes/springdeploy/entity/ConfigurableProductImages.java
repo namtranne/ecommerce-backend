@@ -11,7 +11,7 @@ public class ConfigurableProductImages {
     private Integer id;
 
     @Column(name = "configurable_product_id")
-    private int configurableProductId;
+    private Integer configurableProductId;
 
     private String url;
 
@@ -23,11 +23,11 @@ public class ConfigurableProductImages {
         this.id = id;
     }
 
-    public int getConfigurableProductId() {
+    public Integer getConfigurableProductId() {
         return configurableProductId;
     }
 
-    public void setConfigurableProductId(int configurableProductId) {
+    public void setConfigurableProductId(Integer configurableProductId) {
         this.configurableProductId = configurableProductId;
     }
 
