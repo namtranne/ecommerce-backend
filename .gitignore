@@ -23,7 +23,6 @@ target/
 /nbproject/private/
 /nbbuild/
 /dist/
-**/src/main/**/PrivateController.java
 /nbdist/
 /.nb-gradle/
 build/
@@ -32,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Java Class ###
+src/main/java/com/ecommerce/server/controller/PrivateController.java
