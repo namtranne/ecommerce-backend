@@ -1,10 +1,18 @@
-package com.eazybytes.springdeploy.repository;
+package com.ecommerce.server.repository;
 
-import com.eazybytes.springdeploy.entity.Products;
+import com.ecommerce.server.entity.Products;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface ProductsRepository extends JpaRepository<Products, Integer> {
     Products findById(int id);
+
+    @Query("SELECT new Products(p.id, p.originalPrice, p.discountRate, p.thumbnailUrl, p.price, p.brand) FROM Products p")
+    Page<Products> findAllProducts(Pageable pageable);
 }

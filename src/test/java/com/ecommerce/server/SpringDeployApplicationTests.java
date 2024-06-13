@@ -1,4 +1,4 @@
-package com.eazybytes.springdeploy;
+package com.ecommerce.server;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

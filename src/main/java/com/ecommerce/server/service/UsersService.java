@@ -1,7 +1,7 @@
-package com.eazybytes.springdeploy.service;
+package com.ecommerce.server.service;
 
-import com.eazybytes.springdeploy.entity.Users;
-import com.eazybytes.springdeploy.repository.UsersRepository;
+import com.ecommerce.server.entity.Users;
+import com.ecommerce.server.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

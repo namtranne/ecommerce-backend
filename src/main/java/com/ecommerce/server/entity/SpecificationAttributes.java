@@ -1,4 +1,4 @@
-package com.eazybytes.springdeploy.entity;
+package com.ecommerce.server.entity;
 
 
 import jakarta.persistence.*;

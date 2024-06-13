@@ -1,6 +1,6 @@
-package com.eazybytes.springdeploy.repository;
+package com.ecommerce.server.repository;
 
-import com.eazybytes.springdeploy.entity.ProductSpecifications;
+import com.ecommerce.server.entity.ProductSpecifications;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

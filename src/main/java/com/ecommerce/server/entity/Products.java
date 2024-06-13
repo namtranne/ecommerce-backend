@@ -1,4 +1,4 @@
-package com.eazybytes.springdeploy.entity;
+package com.ecommerce.server.entity;
 
 
 import jakarta.persistence.*;
@@ -68,6 +68,10 @@ public class Products {
     @JoinColumn(name = "product_id")
     private List<ConfigurableProducts> configurableProducts;
 
+    public Products() {
+
+    }
+
     public Integer getId() {
         return id;
     }
@@ -114,6 +118,15 @@ public class Products {
 
     public void setFavouriteCount(int favouriteCount) {
         this.favouriteCount = favouriteCount;
+    }
+
+    public Products(Integer id, int originalPrice, int discountRate, String thumbnailUrl, int price, Brand brand) {
+        this.id = id;
+        this.originalPrice = originalPrice;
+        this.discountRate = discountRate;
+        this.thumbnailUrl = thumbnailUrl;
+        this.price = price;
+        this.brand = brand;
     }
 
     public String getThumbnailUrl() {

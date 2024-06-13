@@ -1,8 +1,8 @@
-package com.eazybytes.springdeploy.controller;
+package com.ecommerce.server.controller;
 
 
-import com.eazybytes.springdeploy.entity.Users;
-import com.eazybytes.springdeploy.service.UsersService;
+import com.ecommerce.server.entity.Users;
+import com.ecommerce.server.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

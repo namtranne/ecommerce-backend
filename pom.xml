@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.eazybytes</groupId>
-    <artifactId>spring-deploy</artifactId>
+    <artifactId>ecommerce-backend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>spring-deploy</name>
     <description>spring-deploy</description>

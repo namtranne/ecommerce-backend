@@ -1,4 +1,4 @@
-package com.eazybytes.springdeploy.security;
+package com.ecommerce.server.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

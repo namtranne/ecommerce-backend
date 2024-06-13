@@ -1,7 +1,9 @@
-package com.eazybytes.springdeploy.controller;
+package com.ecommerce.server.controller;
 
-import com.eazybytes.springdeploy.entity.*;
-import com.eazybytes.springdeploy.repository.*;
+import com.ecommerce.server.entity.*;
+import com.ecommerce.server.repository.*;
+import com.ecommerce.server.entity.*;
+import com.ecommerce.server.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,7 +37,7 @@ public class PrivateController {
     ConfigurableProductImagesRepository configImageRepo;
 
     @Autowired
-            ConfigurableOptionsRepository optionRepo;
+    ConfigurableOptionsRepository optionRepo;
 
     @Autowired
             ConfigurableOptionValuesRepository optionValueRepo;
@@ -65,14 +67,6 @@ public class PrivateController {
 //        }
 //        category.setParentCategories(parentCategory);
         return categoriesRepo.save(category).getId();
-    }
-
-    @PostMapping("categories/parent")
-    public void setCategoryParent(@RequestParam(value="parentId") int parentId, @RequestParam(value="childrenId") int childrenId) {
-        Categories parentCategory = categoriesRepo.getReferenceById(parentId);
-        Categories childCategory = categoriesRepo.getReferenceById(childrenId);
-        childCategory.setParentCategories(parentCategory);
-        categoriesRepo.save(childCategory);
     }
 
     @PostMapping("image")
