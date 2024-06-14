@@ -4,43 +4,47 @@ import jakarta.persistence.*;
 
 import java.util.List;
 
+
 @Entity
 @Table(name = "categories")
 public class Categories {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private String url;
     private String name;
 
-    public Categories() {
+    @Column(name = "parent_category_id")
+    private Integer parentCategoryId;
 
-    }
+    @OneToMany(mappedBy = "parentCategoryId")
+    private List<Categories> childrenCategories;
 
-    public Categories(Integer id, String url, String name) {
-        this.id = id;
-        this.url = url;
-        this.name = name;
-    }
+    // Default constructor
+    public Categories() { }
 
-    public Categories(int id, String name, String url, List<Categories> childrenCategories) {
+    public Categories(Integer id, String url, String name, List<Categories> childrenCategories) {
         this.id = id;
         this.url = url;
         this.name = name;
         this.childrenCategories = childrenCategories;
     }
 
-    public void setId(Integer id) {
+    // Constructor for partial fields
+    public Categories(Integer id, String url, String name) {
         this.id = id;
+        this.url = url;
+        this.name = name;
     }
 
-
-    public int getId() {
+    // Getters and Setters
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -60,21 +64,13 @@ public class Categories {
         this.name = name;
     }
 
-//    public Categories getParentCategories() {
-//        return parentCategories;
-//    }
-//
-//    public void setParentCategories(Categories parentCategories) {
-//        this.parentCategories = parentCategories;
-//    }
+    public Integer getParentCategoryId() {
+        return parentCategoryId;
+    }
 
-//    @ManyToOne
-//    @JoinColumn(name="parent_category_id", referencedColumnName = "id")
-//    Categories parentCategories;
-
-    @OneToMany
-    @JoinColumn(name="parent_category_id")
-    List<Categories> childrenCategories;
+    public void setParentCategoryId(Integer parentCategoryId) {
+        this.parentCategoryId = parentCategoryId;
+    }
 
     public List<Categories> getChildrenCategories() {
         return childrenCategories;
@@ -84,3 +80,4 @@ public class Categories {
         this.childrenCategories = childrenCategories;
     }
 }
+

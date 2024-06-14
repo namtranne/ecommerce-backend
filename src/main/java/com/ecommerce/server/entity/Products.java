@@ -120,8 +120,9 @@ public class Products {
         this.favouriteCount = favouriteCount;
     }
 
-    public Products(Integer id, int originalPrice, int discountRate, String thumbnailUrl, int price, Brand brand) {
+    public Products(Integer id, String name, int originalPrice, int discountRate, String thumbnailUrl, int price, Brand brand) {
         this.id = id;
+        this.name = name;
         this.originalPrice = originalPrice;
         this.discountRate = discountRate;
         this.thumbnailUrl = thumbnailUrl;
