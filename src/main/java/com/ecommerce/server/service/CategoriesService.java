@@ -17,16 +17,15 @@ public class CategoriesService {
 
     List<Categories> categoriesTree = new LinkedList<>();
 
-//    @PostConstruct
-//    public void init() {
-//        categoriesTree = categoriesRepository.getAllCategories();
-//    }
 
     public List<Categories> getAllCategories() {
         return categoriesTree;
     }
 
     public List<Categories> getSubCategories(Integer parentId) {
+        if(parentId == null) {
+            return categoriesRepository.getRootCategories();
+        }
         return categoriesRepository.getCategoriesByParentId(parentId);
     }
 }
