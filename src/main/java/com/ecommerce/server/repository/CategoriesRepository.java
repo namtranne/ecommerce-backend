@@ -10,10 +10,13 @@ import java.util.List;
 
 @Repository
 public interface CategoriesRepository extends JpaRepository<Categories, Integer> {
-    @Query("SELECT c FROM Categories c where c.parentCategoryId is null")
+    @Query("SELECT new Categories(c.id, c.url, c.name, c.image) FROM Categories c")
     List<Categories> getAllCategories();
 
-    @Query("SELECT new Categories(c.id, c.url, c.name) FROM Categories c WHERE c.parentCategoryId = :parentId")
+    @Query("SELECT new Categories(c.id, c.url, c.name, c.image) FROM Categories c where c.parentCategory is null")
+    List<Categories> getRootCategories();
+
+    @Query("SELECT new Categories(c.id, c.url, c.name, c.image) FROM Categories c WHERE c.parentCategory.id = :parentId")
     List<Categories> getCategoriesByParentId(@Param("parentId") Integer parentId);
 
 }

@@ -16,30 +16,26 @@ public class Categories {
     private String url;
     private String name;
 
-    @Column(name = "parent_category_id")
-    private Integer parentCategoryId;
+    @Column(name = "is_leaf")
+    private boolean isLeaf;
 
-    @OneToMany(mappedBy = "parentCategoryId")
-    private List<Categories> childrenCategories;
+    @ManyToOne
+    @JoinColumn(name = "parent_category_id", referencedColumnName = "id")
+    private Categories parentCategory;
+
+    private String image;
 
     // Default constructor
     public Categories() { }
 
-    public Categories(Integer id, String url, String name, List<Categories> childrenCategories) {
-        this.id = id;
-        this.url = url;
-        this.name = name;
-        this.childrenCategories = childrenCategories;
-    }
-
     // Constructor for partial fields
-    public Categories(Integer id, String url, String name) {
+    public Categories(Integer id, String url, String name, String image) {
         this.id = id;
         this.url = url;
         this.name = name;
+        this.image = image;
     }
 
-    // Getters and Setters
     public Integer getId() {
         return id;
     }
@@ -64,20 +60,28 @@ public class Categories {
         this.name = name;
     }
 
-    public Integer getParentCategoryId() {
-        return parentCategoryId;
+    public boolean isLeaf() {
+        return isLeaf;
     }
 
-    public void setParentCategoryId(Integer parentCategoryId) {
-        this.parentCategoryId = parentCategoryId;
+    public void setLeaf(boolean leaf) {
+        isLeaf = leaf;
     }
 
-    public List<Categories> getChildrenCategories() {
-        return childrenCategories;
+    public Categories getParentCategory() {
+        return parentCategory;
     }
 
-    public void setChildrenCategories(List<Categories> childrenCategories) {
-        this.childrenCategories = childrenCategories;
+    public void setParentCategory(Categories parentCategory) {
+        this.parentCategory = parentCategory;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }
 

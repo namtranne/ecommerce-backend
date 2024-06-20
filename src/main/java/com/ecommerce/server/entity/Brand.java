@@ -9,21 +9,21 @@ public class Brand {
     @Id
     private Integer id;
 
-    public int getId() {
+    private String name;
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getName() {
         return name;
     }
 
-    private String name;
+    public void setName(String name) {
+        this.name = name;
+    }
 }

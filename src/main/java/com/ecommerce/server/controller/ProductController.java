@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Set;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/products")
 public class ProductController {
 
@@ -55,8 +55,11 @@ public class ProductController {
     }
 
     @GetMapping("/category")
-    public List<Products> getProductsByCategories(@RequestParam(value="categoryId") int categoryId) {
-        return productsService.getProductsByCategoryId(categoryId);
+    public Page<Products> getProductsByCategories(@RequestParam(value="categoryId", required = false) Integer categoryId, @RequestParam(value="page", required = false)Integer page, @RequestParam(value="limit", required = false) Integer limit) {
+        if(categoryId == 0) {
+            return productsService.getProducts(page,limit);
+        }
+        return productsService.getProductsByCategoryId(categoryId, page, limit);
     }
 
 }

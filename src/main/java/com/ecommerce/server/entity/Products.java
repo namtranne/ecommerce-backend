@@ -68,8 +68,24 @@ public class Products {
     @JoinColumn(name = "product_id")
     private List<ConfigurableProducts> configurableProducts;
 
+    @OneToMany
+    @JoinColumn(name = "product_id")
+    private List<ConfigurableOptions> configurableOptions;
+
     public Products() {
 
+    }
+
+    public Products(Integer id, String name, int originalPrice, int discountRate, String thumbnailUrl, int price, Brand brand, String description, String shortDescription) {
+        this.id = id;
+        this.name = name;
+        this.originalPrice = originalPrice;
+        this.discountRate = discountRate;
+        this.thumbnailUrl = thumbnailUrl;
+        this.price = price;
+        this.brand = brand;
+        this.description = description;
+        this.shortDescription = shortDescription;
     }
 
     public Integer getId() {
@@ -120,15 +136,6 @@ public class Products {
         this.favouriteCount = favouriteCount;
     }
 
-    public Products(Integer id, String name, int originalPrice, int discountRate, String thumbnailUrl, int price, Brand brand) {
-        this.id = id;
-        this.name = name;
-        this.originalPrice = originalPrice;
-        this.discountRate = discountRate;
-        this.thumbnailUrl = thumbnailUrl;
-        this.price = price;
-        this.brand = brand;
-    }
 
     public String getThumbnailUrl() {
         return thumbnailUrl;
@@ -258,7 +265,4 @@ public class Products {
         this.configurableOptions = configurableOptions;
     }
 
-    @OneToMany
-    @JoinColumn(name = "product_id")
-    private List<ConfigurableOptions> configurableOptions;
 }
