@@ -28,7 +28,7 @@ public class ProductsService {
     }
 
     public Page<Products> getProductsByCategoryId(int categoryId, int page, int size) {
-        Pageable pageable = PageRequest.of(page-1, 24, Sort.by("price").descending());
+        Pageable pageable = PageRequest.of(page-1, 24, Sort.by("product.price").descending());
         return breadCrumbsRepository.getProductsByCategoryId(categoryId, pageable);
     }
 }
