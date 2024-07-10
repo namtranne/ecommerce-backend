@@ -62,5 +62,10 @@ public class ProductController {
         return productsService.getProductsByCategoryId(categoryId, page, limit);
     }
 
+    @GetMapping("product-info")
+    public Products getProduct(@RequestParam(value="id") int productId) {
+        return productsService.getProductById(productId);
+    }
+
 }
 

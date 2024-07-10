@@ -2,8 +2,12 @@ package com.ecommerce.server.entity;
 
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "product_specification_attributes")
 public class SpecificationAttributes {
     @Id
@@ -16,36 +20,4 @@ public class SpecificationAttributes {
     private String name;
 
     private String value;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getSpecificationId() {
-        return specificationId;
-    }
-
-    public void setSpecificationId(Integer specificationId) {
-        this.specificationId = specificationId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
 }

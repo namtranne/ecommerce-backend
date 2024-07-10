@@ -1,7 +1,11 @@
 package com.ecommerce.server.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "option_values")
 public class ConfigurableOptionValues {
@@ -9,30 +13,6 @@ public class ConfigurableOptionValues {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-
-    public int getOptionId() {
-        return optionId;
-    }
-
-    public void setOptionId(int optionId) {
-        this.optionId = optionId;
-    }
-
-    public String getLabel() {
-        return label;
-    }
-
-    public void setLabel(String label) {
-        this.label = label;
-    }
 
     @Column(name = "option_id")
     private int optionId;

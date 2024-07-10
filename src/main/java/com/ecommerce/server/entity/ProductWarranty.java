@@ -1,8 +1,13 @@
 package com.ecommerce.server.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 @Entity
+@Setter
+@Getter
 @Table(name = "product_warranty")
 public class ProductWarranty {
     @Id
@@ -19,44 +24,4 @@ public class ProductWarranty {
     private String warrantyValue;
 
     private String url;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getProductId() {
-        return productId;
-    }
-
-    public void setProductId(Integer productId) {
-        this.productId = productId;
-    }
-
-    public String getWarrantyName() {
-        return warrantyName;
-    }
-
-    public void setWarrantyName(String warrantyName) {
-        this.warrantyName = warrantyName;
-    }
-
-    public String getWarrantyValue() {
-        return warrantyValue;
-    }
-
-    public void setWarrantyValue(String warrantyValue) {
-        this.warrantyValue = warrantyValue;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
 }

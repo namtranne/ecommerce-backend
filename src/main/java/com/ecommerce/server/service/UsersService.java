@@ -1,16 +1,16 @@
 package com.ecommerce.server.service;
 
-import com.ecommerce.server.entity.Users;
-import com.ecommerce.server.repository.UsersRepository;
+import com.ecommerce.server.entity.User;
+import com.ecommerce.server.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UsersService {
     @Autowired
-    private UsersRepository usersRepository;
+    private UserRepository usersRepository;
 
-    public Users saveUser(Users user) {
+    public User saveUser(User user) {
         return usersRepository.save(user);
     }
 }

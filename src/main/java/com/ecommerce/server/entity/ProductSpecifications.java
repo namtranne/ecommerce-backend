@@ -1,10 +1,14 @@
 package com.ecommerce.server.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "product_specifications")
 public class ProductSpecifications {
     @Id
@@ -19,36 +23,4 @@ public class ProductSpecifications {
     @OneToMany
     @JoinColumn(name="specification_id")
     private List<SpecificationAttributes> attributes;
-
-    public List<SpecificationAttributes> getAttributes() {
-        return attributes;
-    }
-
-    public void setAttributes(List<SpecificationAttributes> attributes) {
-        this.attributes = attributes;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getProductId() {
-        return productId;
-    }
-
-    public void setProductId(Integer productId) {
-        this.productId = productId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }

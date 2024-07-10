@@ -5,6 +5,7 @@ import com.ecommerce.server.entity.Products;
 import com.ecommerce.server.repository.BreadCrumbsRepository;
 import com.ecommerce.server.repository.ProductsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -31,4 +32,10 @@ public class ProductsService {
         Pageable pageable = PageRequest.of(page-1, 24, Sort.by("product.price").descending());
         return breadCrumbsRepository.getProductsByCategoryId(categoryId, pageable);
     }
+
+    @Cacheable(value="productCache", key="#productId")
+    public Products getProductById(int productId) {
+        return productsRepository.findById(productId);
+    }
+
 }

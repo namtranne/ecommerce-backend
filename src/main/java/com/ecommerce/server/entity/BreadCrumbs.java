@@ -1,8 +1,12 @@
 package com.ecommerce.server.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "breadcrumbs")
 public class BreadCrumbs {
 
@@ -16,32 +20,4 @@ public class BreadCrumbs {
     @ManyToOne
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     private Products product;
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public Integer getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategory_od(Integer categoryId) {
-        this.categoryId = categoryId;
-    }
-
-    public void setCategoryId(Integer categoryId) {
-        this.categoryId = categoryId;
-    }
-
-    public Products getProduct() {
-        return product;
-    }
-
-    public void setProduct(Products products) {
-        this.product = products;
-    }
 }

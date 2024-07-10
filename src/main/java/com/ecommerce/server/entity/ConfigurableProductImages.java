@@ -2,8 +2,12 @@ package com.ecommerce.server.entity;
 
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "configurable_product_images")
 public class ConfigurableProductImages {
     @Id
@@ -21,21 +25,5 @@ public class ConfigurableProductImages {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public Integer getConfigurableProductId() {
-        return configurableProductId;
-    }
-
-    public void setConfigurableProductId(Integer configurableProductId) {
-        this.configurableProductId = configurableProductId;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
     }
 }
