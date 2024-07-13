@@ -1,5 +1,6 @@
 package com.ecommerce.server;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -9,6 +10,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 public class SpringDeployApplication {
 
     public static void main(String[] args) {
+        Dotenv dotenv = Dotenv.load();
+        System.setProperty("jwt.secret", dotenv.get("JWT_SECRET"));
         SpringApplication.run(SpringDeployApplication.class, args);
     }
 
