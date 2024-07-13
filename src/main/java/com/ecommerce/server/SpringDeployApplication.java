@@ -15,7 +15,7 @@ public class SpringDeployApplication {
 
     public static void main(String[] args) throws IOException {
         Dotenv dotenv =  Dotenv.load();
-        System.setProperty("jwt.secret", dotenv.get("JWT_SECRET").isEmpty() ? "dothihuynhnhuxinhtuoinhattrandoiemlahoaluonkhoesacrangngoiemroixaanhkhongthesongemoinenlahaycukebenthoi" : dotenv.get("JWT_SECRET"));
+        System.setProperty("jwt.secret",  "dothihuynhnhuxinhtuoinhattrandoiemlahoaluonkhoesacrangngoiemroixaanhkhongthesongemoinenlahaycukebenthoi");
         Path rootDir = Paths.get("/"); // Replace with your root directory path
         String fileNameToFind = ".env"; // Replace with the file name you want to find
 
