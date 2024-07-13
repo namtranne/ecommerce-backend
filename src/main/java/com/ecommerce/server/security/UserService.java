@@ -1,5 +1,6 @@
 package com.ecommerce.server.security;
 
+import com.ecommerce.server.dto.SignUpRequest;
 import com.ecommerce.server.entity.User;
 import com.ecommerce.server.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,15 @@ public class UserService implements UserDetailsManager {
         return new CustomUserDetails(user);
     }
 
+    public User getUserDetailByUsername (String username) {
+        User user = userRepository.getUserDetailByUsername(username);
+        if (user == null) {
+            throw new UsernameNotFoundException(username);
+        }
+        user.setPassword("");
+        return user;
+    }
+
 
     public UserDetails loadUserById(Integer userId) {
         User user = userRepository.findByUserId(userId);
@@ -39,9 +49,8 @@ public class UserService implements UserDetailsManager {
 
     @Override
     public void createUser(UserDetails userDetails) {
-        User user = new User();
-        user.setUsername(userDetails.getUsername());
-        user.setPassword(passwordEncoder.encode(userDetails.getPassword()));
+        User user = (User) userDetails;
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         // Set other properties of user from userDetails if needed
         userRepository.save(user);
     }

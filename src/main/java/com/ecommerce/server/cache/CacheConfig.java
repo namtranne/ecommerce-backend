@@ -17,5 +17,5 @@ import java.util.List;
 public class CacheConfig {
     @Autowired
     CacheManager cacheManager;
-    
+
 }

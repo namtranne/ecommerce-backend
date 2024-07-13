@@ -3,12 +3,14 @@ package com.ecommerce.server.controller;
 
 import com.ecommerce.server.dto.LoginRequest;
 import com.ecommerce.server.dto.LoginResponse;
+import com.ecommerce.server.dto.SignUpRequest;
 import com.ecommerce.server.entity.User;
 import com.ecommerce.server.security.CustomUserDetails;
 import com.ecommerce.server.security.JwtTokenProvider;
 import com.ecommerce.server.security.UserService;
 import com.ecommerce.server.service.UsersService;
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/api")
+@Slf4j
 public class UsersController {
     @Autowired
     private UserService userService;
@@ -51,17 +54,14 @@ public class UsersController {
     }
 
     @PostMapping("/register")
-    public LoginResponse registerUser(@Valid @RequestBody LoginRequest loginRequest) {
-        UserDetails userDetails = org.springframework.security.core.userdetails.User.withUsername(loginRequest.getUsername())
-                        .password(loginRequest.getPassword())
-                        .roles("USER")
-                        .build();
-        userService.createUser(userDetails);
+    public LoginResponse registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
+        User user = new User(signUpRequest);
+        userService.createUser(user);
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        loginRequest.getUsername(),
-                        loginRequest.getPassword()
+                        signUpRequest.getUsername(),
+                        signUpRequest.getPassword()
                 )
         );
 
@@ -78,12 +78,16 @@ public class UsersController {
     public User getUserDetail() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = "";
-        if (authentication != null && authentication.getPrincipal() instanceof CustomUserDetails) {
-            CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+        if (authentication != null && authentication.getPrincipal() instanceof CustomUserDetails userDetails) {
             username = userDetails.getUsername();
         }
-        User user = new com.ecommerce.server.entity.User();
-        user.setUsername(username);
-        return user;
+        try {
+            return userService.getUserDetailByUsername(username);
+        }
+        catch(Exception e) {
+            log.info("User not found");
+        }
+        //need to handle error
+        return new User();
     }
 }

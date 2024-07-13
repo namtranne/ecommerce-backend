@@ -21,8 +21,7 @@
 //@Order(Ordered.HIGHEST_PRECEDENCE + 1)
 //public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 //
-//    @Value("${frontend.caller.host:http://localhost:3000}")
-//    private String frontendCallerHost;
+//    private String frontendCallerHost = "http://localhost:5173/";
 //
 //    private final WebSocketTokenFilter webSocketTokenFilter;
 //
