@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 public class SpringDeployApplication {
 
     public static void main(String[] args) {
-        Dotenv dotenv =  Dotenv.configure().directory(System.getProperty("user.home")).load();
+        Dotenv dotenv =  Dotenv.configure().directory(System.getProperty("user.home") + "/etc/secrets").load();
         System.setProperty("jwt.secret", dotenv.get("JWT_SECRET"));
         SpringApplication.run(SpringDeployApplication.class, args);
     }
