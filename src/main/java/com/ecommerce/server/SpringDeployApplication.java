@@ -14,14 +14,15 @@ import java.nio.file.attribute.BasicFileAttributes;
 public class SpringDeployApplication {
 
     public static void main(String[] args) throws IOException {
-        Path rootDir = Paths.get("/"); // Replace with your root directory path
+        String rootDir = System.getProperty("user.dir"); // Replace with your root directory path
         String fileNameToFind = ".env"; // Replace with the file name you want to find
-
-        Files.walkFileTree(rootDir, new SimpleFileVisitor<Path>() {
+        final boolean[] found = {false};
+        Files.walkFileTree(Path.of(rootDir), new SimpleFileVisitor<Path>() {
             @Override
             public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
                 if (file.getFileName().toString().equals(fileNameToFind)) {
                     System.out.println("File found: " + file.toAbsolutePath());
+                    found[0] = true;
                     return FileVisitResult.TERMINATE; // Terminate search after finding the first occurrence
                 }
                 else {
@@ -35,6 +36,13 @@ public class SpringDeployApplication {
                 return FileVisitResult.CONTINUE; // Continue if access is denied or other errors occur
             }
         });
+
+        if(found[0]) {
+            System.out.println("Found file .env");
+        }
+        else {
+            System.out.println(".env not found");
+        }
         SpringApplication.run(SpringDeployApplication.class, args);
     }
 
