@@ -5,6 +5,7 @@ import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
@@ -17,6 +18,9 @@ public class JwtTokenProvider {
 
     private final long JWT_EXPIRATION = 604800000L; // 7 days
     private Key key;
+
+    @Value("${jwt.secret}")
+    private String secretKey;
 
     @PostConstruct
     public void init() {
