@@ -23,7 +23,7 @@ public class JwtTokenProvider {
 
     @PostConstruct
     public void init() {
-        String base64Secret = System.getProperty("jwt.secret");
+        String base64Secret = "dothihuynhnhuxinhtuoinhattrandoiemlahoaluonkhoesacrangngoiemroixaanhkhongthesongemoinenlahaycukebenthoi";
         if (base64Secret == null) {
             throw new IllegalArgumentException("JWT_SECRET environment variable is not set");
         }
