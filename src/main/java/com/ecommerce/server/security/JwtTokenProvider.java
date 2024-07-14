@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import java.security.Key;
 import java.util.Base64;
 import java.util.Date;
+import java.util.Map;
 
 @Component
 @Slf4j
@@ -21,12 +22,11 @@ public class JwtTokenProvider {
     private final long JWT_EXPIRATION = 604800000L; // 7 days
     private Key key;
 
-    @Autowired
-    private Environment env;
+    @Value("${jwt.secret}")
+    private String secret;
 
     @PostConstruct
     public void init() {
-        String secret = env.getProperty("jwt.secret");
         if (secret == null) {
             throw new IllegalArgumentException("JWT_SECRET environment variable is not set");
         }
