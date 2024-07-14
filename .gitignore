@@ -31,8 +31,8 @@ build/
 
 ### VS Code ###
 .vscode/
-.env
+#.env
 
 ### Java Class ###
 src/main/java/com/ecommerce/server/controller/PrivateController.java
-src/main/resources/application.properties
+#src/main/resources/application.properties
