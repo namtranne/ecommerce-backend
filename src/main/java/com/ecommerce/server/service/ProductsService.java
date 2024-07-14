@@ -1,5 +1,6 @@
 package com.ecommerce.server.service;
 
+import com.ecommerce.server.dto.CatalogRequest;
 import com.ecommerce.server.entity.BreadCrumbs;
 import com.ecommerce.server.entity.Products;
 import com.ecommerce.server.repository.BreadCrumbsRepository;
@@ -23,14 +24,43 @@ public class ProductsService {
     @Autowired
     private BreadCrumbsRepository breadCrumbsRepository;
 
-    public Page<Products> getProducts(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        return productsRepository.findAllProducts(pageable);
+    public Page<Products> getProducts(CatalogRequest request) {
+        int page = request.getPage();
+        Pageable pageable;
+        if (request.getSortBy() != null && request.getSortDir() != null) {
+            Sort.Direction direction = request.getSortDir().equalsIgnoreCase("des") ? Sort.Direction.DESC : Sort.Direction.ASC;
+            pageable = PageRequest.of(page, 24, Sort.by(direction, request.getSortBy()));
+        } else {
+            pageable = PageRequest.of(page, 24);
+        }
+
+        return productsRepository.findProductsByRequest(
+                request.getBrand(),
+                request.getKeyWord(),
+                request.getMinPrice(),
+                request.getMaxPrice(),
+                pageable
+        );
     }
 
-    public Page<Products> getProductsByCategoryId(int categoryId, int page, int size) {
-        Pageable pageable = PageRequest.of(page-1, 24, Sort.by("product.price").descending());
-        return breadCrumbsRepository.getProductsByCategoryId(categoryId, pageable);
+    public Page<Products> getProductsByCategoryId(CatalogRequest request) {
+        int page = request.getPage();
+        Pageable pageable;
+        if (request.getSortBy() != null && request.getSortDir() != null) {
+            Sort.Direction direction = request.getSortDir().equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
+            pageable = PageRequest.of(page, 24, Sort.by(direction, request.getSortBy()));
+        } else {
+            pageable = PageRequest.of(page, 24);
+        }
+
+        return productsRepository.findProductsByCategory(
+                request.getCategoryId(),
+                request.getBrand(),
+                request.getKeyWord(),
+                request.getMinPrice(),
+                request.getMaxPrice(),
+                pageable
+        );
     }
 
     @Cacheable(value="productCache", key="#productId")

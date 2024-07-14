@@ -1,5 +1,6 @@
 package com.ecommerce.server.controller;
 
+import com.ecommerce.server.dto.CatalogRequest;
 import com.ecommerce.server.entity.*;
 import com.ecommerce.server.repository.*;
 import com.ecommerce.server.service.ProductsService;
@@ -49,17 +50,17 @@ public class ProductController {
     @Autowired
     ProductSpecificationAttributesRepository specificationAttributesRepo;
 
-    @GetMapping("")
-    public Page<Products> getAllProducts(@RequestParam(value="page")int page, @RequestParam(value="limit") int limit) {
-        return  productsService.getProducts(page,limit);
-    }
+//    @GetMapping("")
+//    public Page<Products> getAllProducts(@RequestParam(value="page")int page) {
+//        return  productsService.getProducts(page);
+//    }
 
-    @GetMapping("/category")
-    public Page<Products> getProductsByCategories(@RequestParam(value="categoryId", required = false) Integer categoryId, @RequestParam(value="page", required = false)Integer page, @RequestParam(value="limit", required = false) Integer limit) {
-        if(categoryId == 0) {
-            return productsService.getProducts(page,limit);
+    @PostMapping("/category")
+    public Page<Products> getProductsByCategories(@RequestBody CatalogRequest request) {
+        if(request.getCategoryId() == 0) {
+            return productsService.getProducts(request);
         }
-        return productsService.getProductsByCategoryId(categoryId, page, limit);
+        return productsService.getProductsByCategoryId(request);
     }
 
     @GetMapping("product-info")
