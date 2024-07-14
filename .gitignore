@@ -35,3 +35,4 @@ build/
 
 ### Java Class ###
 src/main/java/com/ecommerce/server/controller/PrivateController.java
+src/main/resources/application.properties
