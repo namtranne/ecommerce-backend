@@ -22,6 +22,7 @@ public class JwtTokenProvider {
 
     @PostConstruct
     public void init() {
+        System.out.println(System.getProperty("user.dir").toString());
         Dotenv dotenv = Dotenv.configure().directory(System.getProperty("user.dir")).load();
         String base64Secret = dotenv.get("JWT_SECRET");
         if (base64Secret == null) {
