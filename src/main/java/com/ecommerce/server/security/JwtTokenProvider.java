@@ -19,16 +19,15 @@ public class JwtTokenProvider {
     private final long JWT_EXPIRATION = 604800000L; // 7 days
     private Key key;
 
+    @Value("${jwt.secret}")
+    private String secret;
 
     @PostConstruct
     public void init() {
-        System.out.println(System.getProperty("user.dir").toString());
-        Dotenv dotenv = Dotenv.configure().directory(System.getProperty("user.dir")).load();
-        String base64Secret = dotenv.get("JWT_SECRET");
-        if (base64Secret == null) {
+        if (secret == null) {
             throw new IllegalArgumentException("JWT_SECRET environment variable is not set");
         }
-        byte[] decodedKey = Base64.getDecoder().decode(base64Secret);
+        byte[] decodedKey = Base64.getDecoder().decode(secret);
         this.key = Keys.hmacShaKeyFor(decodedKey);
         log.info("JWT secret key initialized successfully");
     }
