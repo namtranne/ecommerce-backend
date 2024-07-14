@@ -1,12 +1,11 @@
 package com.ecommerce.server.security;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
@@ -20,14 +19,15 @@ public class JwtTokenProvider {
     private final long JWT_EXPIRATION = 604800000L; // 7 days
     private Key key;
 
+    @Value("${jwt.secret}")
+    private String secret;
 
     @PostConstruct
     public void init() {
-        String base64Secret = "dothihuynhnhuxinhtuoinhattrandoiemlahoaluonkhoesacrangngoiemroixaanhkhongthesongemoinenlahaycukebenthoi";
-        if (base64Secret == null) {
+        if (secret == null) {
             throw new IllegalArgumentException("JWT_SECRET environment variable is not set");
         }
-        byte[] decodedKey = Base64.getDecoder().decode(base64Secret);
+        byte[] decodedKey = Base64.getDecoder().decode(secret);
         this.key = Keys.hmacShaKeyFor(decodedKey);
         log.info("JWT secret key initialized successfully");
     }
