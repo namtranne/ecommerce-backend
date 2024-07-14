@@ -1,12 +1,11 @@
 package com.ecommerce.server.security;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
@@ -23,7 +22,8 @@ public class JwtTokenProvider {
 
     @PostConstruct
     public void init() {
-        String base64Secret = "dothihuynhnhuxinhtuoinhattrandoiemlahoaluonkhoesacrangngoiemroixaanhkhongthesongemoinenlahaycukebenthoi";
+        Dotenv dotenv = Dotenv.configure().directory(System.getProperty("user.dir")).load();
+        String base64Secret = dotenv.get("JWT_SECRET");
         if (base64Secret == null) {
             throw new IllegalArgumentException("JWT_SECRET environment variable is not set");
         }
