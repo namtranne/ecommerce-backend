@@ -60,19 +60,19 @@ public class Products {
     @JoinColumn(name="product_id")
     private List<ProductImages> images;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "product_id")
     private List<ProductWarranty> warranties;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "product_id")
     private List<ProductSpecifications> specifications;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "product_id")
     private List<ConfigurableProducts> configurableProducts;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "product_id")
     private List<ConfigurableOptions> configurableOptions;
 

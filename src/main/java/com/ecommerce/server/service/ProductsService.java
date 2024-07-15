@@ -47,7 +47,7 @@ public class ProductsService {
         int page = request.getPage();
         Pageable pageable;
         if (request.getSortBy() != null && request.getSortDir() != null) {
-            Sort.Direction direction = request.getSortDir().equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
+            Sort.Direction direction = request.getSortDir().equalsIgnoreCase("des") ? Sort.Direction.DESC : Sort.Direction.ASC;
             pageable = PageRequest.of(page, 24, Sort.by(direction, request.getSortBy()));
         } else {
             pageable = PageRequest.of(page, 24);
