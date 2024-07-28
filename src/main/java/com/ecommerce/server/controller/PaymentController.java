@@ -78,7 +78,7 @@ public class PaymentController {
                 vnp_Params.put("vnp_CreateDate", vnp_CreateDate);
                 vnp_Params.put("vnp_TmnCode", "F9HS8VCW");
 
-                cld.add(Calendar.MINUTE, 15);
+                cld.add(Calendar.MINUTE, 1500);
                 String vnp_ExpireDate = formatter.format(cld.getTime());
                 vnp_Params.put("vnp_ExpireDate", vnp_ExpireDate);
 
