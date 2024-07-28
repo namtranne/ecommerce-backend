@@ -68,4 +68,7 @@ public class ProductsService {
         return productsRepository.findById(productId);
     }
 
+    public Products getProductCartById(Integer productId) {
+        return productsRepository.getCartProductById(productId);
+    }
 }

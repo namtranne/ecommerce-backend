@@ -1,6 +1,7 @@
 package com.ecommerce.server.security;
 
 import com.ecommerce.server.dto.SignUpRequest;
+import com.ecommerce.server.dto.UserDetailRequest;
 import com.ecommerce.server.entity.User;
 import com.ecommerce.server.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,5 +74,15 @@ public class UserService implements UserDetailsManager {
     @Override
     public boolean userExists(String username) {
         return false;
+    }
+
+    public void updateUser(String username, UserDetailRequest user) {
+        User newUser = userRepository.findFullUserByUsername(username);
+        newUser.setFirstName(user.getFirstName());
+        newUser.setLastName(user.getLastName());
+        newUser.setEmail(user.getEmail());
+        newUser.setPhoneNumber(user.getPhoneNumber());
+        newUser.setBirthDay(user.getBirthDay());
+        userRepository.save(newUser);
     }
 }

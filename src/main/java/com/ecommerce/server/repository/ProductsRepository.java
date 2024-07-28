@@ -14,6 +14,10 @@ import java.util.List;
 public interface ProductsRepository extends JpaRepository<Products, Integer> {
     Products findById(int id);
 
+    @Query("SELECT new Products(p.id, p.originalPrice, p.discount, p.name, p.price) FROM Products p WHERE p.id = :productId")
+    Products getCartProductById(@Param("productId") Integer productId);
+
+
     @Query("SELECT new Products(p.id, p.name, p.originalPrice, p.discountRate, p.thumbnailUrl, p.price, p.brand, p.description, p.shortDescription) FROM Products p")
     Page<Products> findAllProducts(Pageable pageable);
 

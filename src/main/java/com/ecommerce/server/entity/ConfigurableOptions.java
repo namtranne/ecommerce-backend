@@ -20,6 +20,8 @@ public class ConfigurableOptions {
 
     private String code;
 
+    private String name;
+
     @OneToMany
     @JoinColumn(name = "option_id")
     List<ConfigurableOptionValues> values;

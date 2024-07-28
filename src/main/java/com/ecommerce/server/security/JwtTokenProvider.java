@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
+import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
@@ -55,7 +56,7 @@ public class JwtTokenProvider {
         return null;
     }
 
-    public String getUsernameFromJwtToken(String token) {
+    public String getUserIdFromJwtToken(String token) {
         Claims claims = parseClaims(token);
         if (claims != null) {
             return claims.getSubject();
@@ -92,5 +93,36 @@ public class JwtTokenProvider {
             log.error("JWT claims string is empty: {}", ex.getMessage());
         }
         return null;
+    }
+
+    public boolean validateJwtToken(String authToken) {
+//    System.out.println("validate token");
+        try {
+            Jwts.parserBuilder()
+                    .setSigningKey(key).build()
+                    .parseClaimsJws(authToken)
+                    .getBody();
+            return true;
+        } catch (MalformedJwtException e) {
+            log.error("Invalid JWT token: {}", e.getMessage());
+        } catch (ExpiredJwtException e) {
+            log.error("JWT token is expired: {}", e.getMessage());
+        } catch (UnsupportedJwtException e) {
+            log.error("JWT token is unsupported: {}", e.getMessage());
+        } catch (IllegalArgumentException e) {
+            log.error("JWT claims string is empty: {}", e.getMessage());
+        }
+
+        return false;
+    }
+
+    public String parseJwt(StompHeaderAccessor accessor) {
+        String token = accessor.getFirstNativeHeader("Authorization");
+        System.out.println(token);
+        String jwt = null;
+        if (token != null) {
+            jwt = token.substring(7);
+        }
+        return jwt;
     }
 }

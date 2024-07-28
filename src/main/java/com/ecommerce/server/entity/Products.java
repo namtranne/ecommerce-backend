@@ -72,6 +72,14 @@ public class Products {
     @JoinColumn(name = "product_id")
     private List<ConfigurableProducts> configurableProducts;
 
+    public Products(Integer id, int originalPrice, int discountRate, String name, int price) {
+        this.id = id;
+        this.originalPrice = originalPrice;
+        this.discountRate = discountRate;
+        this.name = name;
+        this.price = price;
+    }
+
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "product_id")
     private List<ConfigurableOptions> configurableOptions;
