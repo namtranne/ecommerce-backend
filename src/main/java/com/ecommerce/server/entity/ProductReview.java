@@ -24,6 +24,9 @@ public class ProductReview {
     @Column(name="content")
     private String content;
 
+    @Column(name="reviewer_name")
+    private String reviewerName;
+
     public ProductReview() {
 
     }
