@@ -130,4 +130,10 @@ public class PaymentController {
         response.setUrl("");
         return new ResponseEntity<>(response, HttpStatus.EXPECTATION_FAILED);
     }
+
+    @GetMapping("/vnpay_return")
+    public void getVNPayReturn() {
+        System.out.println("OK");
+    }
+
 }
