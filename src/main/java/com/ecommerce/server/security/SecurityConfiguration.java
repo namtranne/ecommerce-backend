@@ -40,7 +40,7 @@ public class SecurityConfiguration {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeRequests(authorizeRequests ->
                         authorizeRequests
-                                .requestMatchers("/api/**", "/api/auth/login", "/api/auth/register", "/ws").permitAll()
+                                .requestMatchers("/api/**", "/api/auth/login", "/api/auth/register", "/ws", "/api/payment/vnpay_return").permitAll()
                                 .requestMatchers("/api/auth/**").authenticated()
                                 .anyRequest()
                                 .permitAll()

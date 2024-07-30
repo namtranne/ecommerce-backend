@@ -132,7 +132,7 @@ public class PaymentController {
     }
 
     @GetMapping("/vnpay_return")
-    public void getVNPayReturn() {
+    public void vnpayReturn() {
         System.out.println("OK");
     }
 
