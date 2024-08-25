@@ -17,10 +17,10 @@ public interface CartItemRepository extends JpaRepository<CartItem, Integer> {
     @Query("SELECT ci FROM cart_item ci WHERE ci.productId = :productId AND ci.configurableProductId = :configurableProductId")
     Optional<CartItem> findByProductIdAndConfigurableProductId(@Param("productId") Integer productId, @Param("configurableProductId") Integer configurableProductId);
 
-    List<CartItem> findAllByUsername(String username);
+    List<CartItem> findAllByUserId(Integer userId);
 
     @Modifying
     @Transactional
-    @Query("DELETE FROM cart_item ci WHERE ci.username = :username")
-    void deleteAllByUsername(@Param("username") String username);
+    @Query("DELETE FROM cart_item ci WHERE ci.userId = :userId")
+    void deleteAllByUserId(@Param("userId") Integer userId);
 }

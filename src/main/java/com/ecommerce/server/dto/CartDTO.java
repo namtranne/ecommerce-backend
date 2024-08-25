@@ -18,7 +18,7 @@ public class CartDTO {
         
     }
     private Integer id;
-    private String username;
+    private Integer userId;
     private Products product;
     private Integer configurableProductId;
     private String option1;

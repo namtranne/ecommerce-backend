@@ -3,9 +3,11 @@ package com.ecommerce.server.controller;
 import com.ecommerce.server.dto.CartDTO;
 import com.ecommerce.server.dto.PaymentResponse;
 import com.ecommerce.server.entity.CartItem;
+import com.ecommerce.server.entity.OrderDetails;
 import com.ecommerce.server.entity.Products;
 import com.ecommerce.server.repository.CartItemRepository;
 import com.ecommerce.server.security.CustomUserDetails;
+import com.ecommerce.server.service.OrderService;
 import com.ecommerce.server.service.ProductsService;
 import com.ecommerce.server.vnpay.VNPayConfiguration;
 import jakarta.servlet.http.HttpServletRequest;
@@ -34,27 +36,22 @@ public class PaymentController {
     private CartItemRepository cartItemRepository;
 
     @Autowired
-    private ProductsService productsService;
+    private OrderService orderService;
 
     @GetMapping("/create_payment")
     public ResponseEntity<?> createPayment(HttpServletRequest request) throws UnsupportedEncodingException {
 //        long amount = Integer.parseInt(req.getParameter("amount"))*100;
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = "";
+//        String username = "";
         if (authentication != null && authentication.getPrincipal() instanceof CustomUserDetails userDetails){
-            username = userDetails.getUsername();
+            Integer userId = userDetails.getUser().getId();
             try {
-                List<CartItem> cartItems = cartItemRepository.findAllByUsername(username);
-                long amount =0;
-                for(CartItem cartItem : cartItems) {
-                    Products product = productsService.getProductCartById(cartItem.getProductId());
-                    amount+= (long) product.getPrice() * cartItem.getQuantity();
-                }
-                System.out.println(amount);
-                amount*=100;
+                List<CartItem> cartItems = cartItemRepository.findAllByUserId(userId);
+                OrderDetails order = orderService.createOrder(cartItems, userId);
+                long amount=(long)order.getTotal()*100;
 
-                cartItemRepository.deleteAllByUsername(username);
+                cartItemRepository.deleteAllByUserId(userId);
                 String vnp_TxnRef = VNPayConfiguration.getRandomNumber(8);
                 String vnp_IpAddr = VNPayConfiguration.getIpAddress(request);
 
@@ -71,7 +68,7 @@ public class PaymentController {
                 vnp_Params.put("vnp_OrderType", VNPayConfiguration.orderType);
                 vnp_Params.put("vnp_Locale", "vn");
                 vnp_Params.put("vnp_IpAddr", vnp_IpAddr);
-                vnp_Params.put("vnp_ReturnUrl", "https://g5tech.store/payment/success");
+                vnp_Params.put("vnp_ReturnUrl", "https://g5tech.store/payment/success/" + order.getId());
                 Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
                 SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
                 String vnp_CreateDate = formatter.format(cld.getTime());

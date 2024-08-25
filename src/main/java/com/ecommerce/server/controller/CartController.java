@@ -39,9 +39,8 @@ public class CartController {
     @PostMapping(value="/add")
     public ResponseEntity<?> addCartItem(@RequestBody CartItem cartItem) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = "";
         if (authentication != null && authentication.getPrincipal() instanceof CustomUserDetails userDetails){
-            username = userDetails.getUsername();
+            Integer userId = userDetails.getUser().getId();
             try {
                 Optional<CartItem> optionalCartItem = repository.findByProductIdAndConfigurableProductId(cartItem.getProductId(), cartItem.getConfigurableProductId());
                 if(optionalCartItem.isPresent()) {
@@ -51,7 +50,7 @@ public class CartController {
                     repository.save(cartItem1);
                 }
                 else {
-                    cartItem.setUsername(username);
+                    cartItem.setUserId(userId);
                     repository.save(cartItem);
                 }
                 RequestResponse response = new RequestResponse();
@@ -74,15 +73,14 @@ public class CartController {
     @GetMapping
     public ResponseEntity<?> getCart() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = "";
         if (authentication != null && authentication.getPrincipal() instanceof CustomUserDetails userDetails){
-            username = userDetails.getUsername();
+            Integer userId = userDetails.getUser().getId();
             try {
-                List<CartItem> cartItems = repository.findAllByUsername(username);
+                List<CartItem> cartItems = repository.findAllByUserId(userId);
                 List<CartDTO> cartDTOS = new LinkedList<>();
                 for(CartItem cartItem : cartItems) {
                     Products product = productsService.getProductCartById(cartItem.getProductId());
-                    cartDTOS.add(new CartDTO(null, cartItem.getUsername(), product, cartItem.getConfigurableProductId(), cartItem.getOption1(), cartItem.getOption2(), cartItem.getImage(), cartItem.getQuantity()));
+                    cartDTOS.add(new CartDTO(null, cartItem.getUserId(), product, cartItem.getConfigurableProductId(), cartItem.getOption1(), cartItem.getOption2(), cartItem.getImage(), cartItem.getQuantity()));
                 }
                 return new ResponseEntity<>(cartDTOS, HttpStatus.OK);
             } catch(Exception e) {
