@@ -30,8 +30,11 @@ public class Address {
     @Column(name="country")
     private String country;
 
-    @Column(name="city")
-    private String city;
+    @Column(name="district_code")
+    private String district;
+
+    @Column(name="province_code")
+    private String province;
 
     @Column(name="postal_code")
     private String postalCode;

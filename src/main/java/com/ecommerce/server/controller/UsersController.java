@@ -1,6 +1,7 @@
 package com.ecommerce.server.controller;
 
 
+import com.ecommerce.server.constant.HttpStatusCode;
 import com.ecommerce.server.dto.*;
 import com.ecommerce.server.entity.Address;
 import com.ecommerce.server.entity.User;
@@ -155,5 +156,18 @@ public class UsersController {
         response.setStatus("Fail");
         response.setMessage("Add user address fail");
         return new ResponseEntity<>(response, HttpStatus.EXPECTATION_FAILED);
+    }
+
+    @GetMapping("/admin/user")
+    public ResponseEntity<GetUsersDTO> getAllUsers() {
+        try {
+            List<User> users = userService.getAllUsers();
+            GetUsersDTO response = new GetUsersDTO(HttpStatusCode.OK, users);
+            return new ResponseEntity<GetUsersDTO>(response, HttpStatus.OK);
+        }
+        catch(Exception e) {
+            GetUsersDTO response = new GetUsersDTO(HttpStatusCode.INTERNAL_SERVER_ERROR, null);
+            return new ResponseEntity<GetUsersDTO>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

@@ -42,6 +42,7 @@ public class JwtTokenProvider {
 
         return Jwts.builder()
                 .setSubject(Long.toString(userDetails.getUser().getId()))
+                .claim("username", userDetails.getUser().getEmail())
                 .setIssuedAt(now)
                 .setExpiration(expiryDate)
                 .signWith(key)

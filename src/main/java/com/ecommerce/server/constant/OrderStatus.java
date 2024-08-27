@@ -1,5 +1,8 @@
 package com.ecommerce.server.constant;
 
+import lombok.Getter;
+
+@Getter
 public enum OrderStatus {
     WAITING_FOR_PAYMENT("Waiting for Payment"),
     PAID("Paid"),
@@ -13,10 +16,6 @@ public enum OrderStatus {
 
     OrderStatus(String displayName) {
         this.displayName = displayName;
-    }
-
-    public String getDisplayName() {
-        return displayName;
     }
 
     @Override

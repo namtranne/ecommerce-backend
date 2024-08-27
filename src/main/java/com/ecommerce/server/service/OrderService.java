@@ -2,6 +2,8 @@ package com.ecommerce.server.service;
 
 import com.ecommerce.server.constant.OrderStatus;
 import com.ecommerce.server.constant.PaymentMethod;
+import com.ecommerce.server.constant.PaymentStatus;
+import com.ecommerce.server.dto.PaymentRequestDTO;
 import com.ecommerce.server.entity.CartItem;
 import com.ecommerce.server.entity.OrderDetails;
 import com.ecommerce.server.entity.OrderItem;
@@ -24,12 +26,20 @@ public class OrderService {
 
     @Autowired ProductsService productService;
 
-    public OrderDetails createOrder(List<CartItem> cartItems, Integer userId) {
+    public OrderDetails createOrder(List<CartItem> cartItems, Integer userId, String username, PaymentRequestDTO paymentRequestDTO) {
         OrderDetails order = new OrderDetails();
         order.setUserId(userId);
-        order.setPaymentMethod(PaymentMethod.VN_PAY.name());
+        order.setPaymentMethod(paymentRequestDTO.getPaymentMethod());
+        order.setUsername(username);
+        order.setAddress(paymentRequestDTO.getAddress());
+        if(paymentRequestDTO.getPaymentMethod().equals(PaymentMethod.CASH.toString())) {
+            order.setOrderStatus(OrderStatus.PREPARING.getDisplayName());
+        }
+        else {
+            order.setOrderStatus(OrderStatus.WAITING_FOR_PAYMENT.getDisplayName());
+        }
+        order.setPaymentStatus(PaymentStatus.PENDING.toString());
         OrderDetails savedOrder = orderDetailsRepository.save(order);
-        order.setOrderStatus(OrderStatus.WAITING_FOR_PAYMENT.getDisplayName());
         List<OrderItem> orderItems = new LinkedList<>();
         int amount = 0;
         for(CartItem cartItem : cartItems) {
@@ -53,5 +63,13 @@ public class OrderService {
 
     public List<OrderDetails> getUserOrders(Integer userId) {
         return orderDetailsRepository.getByUserId(userId);
+    }
+
+    public List<OrderDetails> findAll() {
+        return orderDetailsRepository.findAll();
+    }
+
+    public void update(OrderDetails order) {
+        orderDetailsRepository.save(order);
     }
 }

@@ -1,5 +1,6 @@
 package com.ecommerce.server.security;
 
+import com.ecommerce.server.constant.UserRole;
 import com.ecommerce.server.repository.UserRepository;
 import jakarta.servlet.Filter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,7 @@ public class SecurityConfiguration {
                         authorizeRequests
                                 .requestMatchers("/api/**", "/api/auth/login", "/api/auth/register", "/ws", "/api/payment/vnpay_return").permitAll()
                                 .requestMatchers("/api/auth/**").authenticated()
+                                .requestMatchers("/api/admin/**").hasRole("ADMIN")
                                 .anyRequest()
                                 .permitAll()
                 )

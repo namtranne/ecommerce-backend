@@ -1,5 +1,6 @@
 package com.ecommerce.server.entity;
 
+import com.ecommerce.server.constant.UserRole;
 import com.ecommerce.server.dto.SignUpRequest;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -17,7 +18,8 @@ import java.util.Collection;
 @Table(name = "users")
 public class User implements UserDetails {
     @Id
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
 
     @Column(name = "username")
@@ -40,6 +42,8 @@ public class User implements UserDetails {
     private Date birthDay;
 
     private String password;
+
+    private String role = UserRole.USER.toString();
 
 
     public User() {

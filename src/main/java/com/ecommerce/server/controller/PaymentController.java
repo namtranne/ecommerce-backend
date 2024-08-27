@@ -1,6 +1,8 @@
 package com.ecommerce.server.controller;
 
+import com.ecommerce.server.constant.PaymentMethod;
 import com.ecommerce.server.dto.CartDTO;
+import com.ecommerce.server.dto.PaymentRequestDTO;
 import com.ecommerce.server.dto.PaymentResponse;
 import com.ecommerce.server.entity.CartItem;
 import com.ecommerce.server.entity.OrderDetails;
@@ -16,10 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -38,20 +37,28 @@ public class PaymentController {
     @Autowired
     private OrderService orderService;
 
-    @GetMapping("/create_payment")
-    public ResponseEntity<?> createPayment(HttpServletRequest request) throws UnsupportedEncodingException {
+    @PostMapping("/create_payment")
+    public ResponseEntity<?> createPayment(HttpServletRequest request, @RequestBody PaymentRequestDTO paymentRequestDTO) throws UnsupportedEncodingException {
 //        long amount = Integer.parseInt(req.getParameter("amount"))*100;
+//        request.g
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 //        String username = "";
         if (authentication != null && authentication.getPrincipal() instanceof CustomUserDetails userDetails){
             Integer userId = userDetails.getUser().getId();
+            String username = userDetails.getUser().getUsername();
             try {
                 List<CartItem> cartItems = cartItemRepository.findAllByUserId(userId);
-                OrderDetails order = orderService.createOrder(cartItems, userId);
-                long amount=(long)order.getTotal()*100;
-
+                OrderDetails order = orderService.createOrder(cartItems, userId, username, paymentRequestDTO);
                 cartItemRepository.deleteAllByUserId(userId);
+                if(paymentRequestDTO.getPaymentMethod().equals(PaymentMethod.CASH.toString())) {
+                    PaymentResponse response = new PaymentResponse();
+                    response.setStatus("OK");
+                    response.setMessage("Successfully");
+                    response.setUrl("http://localhost:5173/order/success");
+                    return new ResponseEntity<>(response, HttpStatus.OK);
+                }
+                long amount=(long)order.getTotal()*100;
                 String vnp_TxnRef = VNPayConfiguration.getRandomNumber(8);
                 String vnp_IpAddr = VNPayConfiguration.getIpAddress(request);
 

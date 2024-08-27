@@ -12,6 +12,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService implements UserDetailsManager {
 
@@ -84,5 +86,9 @@ public class UserService implements UserDetailsManager {
         newUser.setPhoneNumber(user.getPhoneNumber());
         newUser.setBirthDay(user.getBirthDay());
         userRepository.save(newUser);
+    }
+
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 }
