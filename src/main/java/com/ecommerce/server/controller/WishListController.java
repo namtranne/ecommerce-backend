@@ -2,6 +2,7 @@ package com.ecommerce.server.controller;
 
 
 import com.ecommerce.server.constant.HttpStatusCode;
+import com.ecommerce.server.dto.AddWishListRequestDTO;
 import com.ecommerce.server.dto.RequestResponse;
 import com.ecommerce.server.dto.WishListResponseDTO;
 import com.ecommerce.server.entity.Products;
@@ -52,12 +53,12 @@ public class WishListController {
     }
 
     @PostMapping("/auth/wishlist")
-    public ResponseEntity<RequestResponse> addWishList(@RequestBody Integer productId) {
+    public ResponseEntity<RequestResponse> addWishList(@RequestBody AddWishListRequestDTO requestDTO) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.getPrincipal() instanceof CustomUserDetails userDetails){
             try {
                 Integer userId = userDetails.getUser().getId();
-                WishList wishList = new WishList(null, userId, productId);
+                WishList wishList = new WishList(null, userId, requestDTO.getProductId());
                 service.save(wishList);
                 RequestResponse response = new RequestResponse( "OK", "Add item to wishlist successfully");
                 return new ResponseEntity<>(response, HttpStatus.OK);

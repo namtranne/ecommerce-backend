@@ -1,2 +1,15 @@
-package com.ecommerce.server.constant;public class AddWishListRequestDTO {
+package com.ecommerce.server.dto;
+
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+public class AddWishListRequestDTO {
+    private Integer productId;
 }
