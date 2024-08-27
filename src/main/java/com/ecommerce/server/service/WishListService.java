@@ -21,4 +21,8 @@ public class WishListService {
     public void save(WishList wishList) {
         repository.save(wishList);
     }
+
+    public void remove(Integer productId, Integer userId) {
+        repository.deleteByProductIdAndUserId(productId, userId);
+    }
 }

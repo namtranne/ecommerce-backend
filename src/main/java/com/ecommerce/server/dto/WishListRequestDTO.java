@@ -10,6 +10,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class AddWishListRequestDTO {
+public class WishListRequestDTO {
     private Integer productId;
 }

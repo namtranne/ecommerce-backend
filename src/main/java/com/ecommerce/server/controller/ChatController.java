@@ -30,11 +30,9 @@ public class ChatController {
 
     @MessageMapping("/chat/sendMessage/{convId}")
     public void sendMessageToConvId(
-//            @Payload ChatMessage chatMessage,
             SimpMessageHeaderAccessor headerAccessor,
             @DestinationVariable("convId") String conversationId) {
-//        chatService.sendMessageToConvId(chatMessage, conversationId, headerAccessor);
-//        return chatMessage;
         System.out.println("Chat");
     }
+
 }
