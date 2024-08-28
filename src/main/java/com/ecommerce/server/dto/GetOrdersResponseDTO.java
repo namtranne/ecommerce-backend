@@ -10,7 +10,7 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-public class GetOrdersDTO {
+public class GetOrdersResponseDTO {
     public int code;
     public List<OrderDetails> orders;
 }

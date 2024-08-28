@@ -72,4 +72,8 @@ public class OrderService {
     public void update(OrderDetails order) {
         orderDetailsRepository.save(order);
     }
+
+    public List<OrderDetails> findByUserId(Integer userId) {
+        return orderDetailsRepository.findByUserId(userId);
+    }
 }

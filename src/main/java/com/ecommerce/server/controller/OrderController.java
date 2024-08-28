@@ -1,21 +1,18 @@
 package com.ecommerce.server.controller;
 
 import com.ecommerce.server.constant.HttpStatusCode;
-import com.ecommerce.server.dto.GetOrdersDTO;
-import com.ecommerce.server.dto.PaymentResponse;
+import com.ecommerce.server.dto.GetOrdersRequestDTO;
+import com.ecommerce.server.dto.GetOrdersResponseDTO;
 import com.ecommerce.server.dto.RequestResponse;
 import com.ecommerce.server.dto.UserOrdersResponseDTO;
 import com.ecommerce.server.entity.OrderDetails;
-import com.ecommerce.server.entity.User;
 import com.ecommerce.server.security.CustomUserDetails;
 import com.ecommerce.server.service.OrderService;
-import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -44,20 +41,25 @@ public class OrderController {
         return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
     }
 
-    @GetMapping("/admin/order")
-    public ResponseEntity<GetOrdersDTO> getAllOrders() {
+    @PostMapping("/admin/order")
+    public ResponseEntity<GetOrdersResponseDTO> getAllOrders(@RequestBody GetOrdersRequestDTO requestDTO) {
         try {
+            if(requestDTO.getUserId() != null) {
+                List<OrderDetails> orders = orderService.findByUserId(requestDTO.getUserId());
+                GetOrdersResponseDTO response = new GetOrdersResponseDTO(HttpStatusCode.OK, orders);
+                return new ResponseEntity<>(response, HttpStatus.OK);
+            }
             List<OrderDetails> orders = orderService.findAll();
-            GetOrdersDTO response = new GetOrdersDTO(HttpStatusCode.OK, orders);
+            GetOrdersResponseDTO response = new GetOrdersResponseDTO(HttpStatusCode.OK, orders);
             return new ResponseEntity<>(response, HttpStatus.OK);
         }
         catch (Exception error) {
-            GetOrdersDTO response = new GetOrdersDTO(HttpStatusCode.INTERNAL_SERVER_ERROR, null);
+            GetOrdersResponseDTO response = new GetOrdersResponseDTO(HttpStatusCode.INTERNAL_SERVER_ERROR, null);
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @PostMapping("/admin/order")
+    @PatchMapping("/admin/order")
     public ResponseEntity<RequestResponse> update(@RequestBody OrderDetails order) {
         try {
             orderService.update(order);
