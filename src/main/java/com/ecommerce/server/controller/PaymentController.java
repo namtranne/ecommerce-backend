@@ -55,7 +55,7 @@ public class PaymentController {
                     PaymentResponse response = new PaymentResponse();
                     response.setStatus("OK");
                     response.setMessage("Successfully");
-                    response.setUrl("http://localhost:5173/order/success");
+                    response.setUrl("https://g5tech.store/order/success");
                     return new ResponseEntity<>(response, HttpStatus.OK);
                 }
                 long amount=(long)order.getTotal()*100;
