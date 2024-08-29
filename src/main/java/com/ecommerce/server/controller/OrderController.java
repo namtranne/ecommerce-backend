@@ -41,6 +41,23 @@ public class OrderController {
         return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
     }
 
+    @PatchMapping("/auth/order/user")
+    public ResponseEntity<RequestResponse> userEditOrder(@RequestBody OrderDetails order) {
+        try {
+            orderService.update(order);
+            RequestResponse response = new RequestResponse();
+            response.setMessage("Order update successfully");
+            response.setStatus("OK");
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }
+        catch(Exception e) {
+            RequestResponse response = new RequestResponse();
+            response.setMessage("There was an error when updating order");
+            response.setStatus("ERROR");
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @PostMapping("/admin/order")
     public ResponseEntity<GetOrdersResponseDTO> getAllOrders(@RequestBody GetOrdersRequestDTO requestDTO) {
         try {
